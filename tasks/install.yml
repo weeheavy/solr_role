@@ -1,7 +1,7 @@
 ---
 # tasks file for Solr
 # installation instructions taken from: https://cwiki.apache.org/confluence/display/solr/Taking+Solr+to+Production
-- name: Solr | Installing required libs
+- name: Solr | Installing required libs (apt)
   apt:
     pkg: "{{ solr_required_libs }}"
     state: present
@@ -10,6 +10,13 @@
     force_apt_get: true
   until: solr_installed_required_libs is succeeded
   register: solr_installed_required_libs
+  when: ansible_os_family == "Debian"
+
+- name: Solr | Installing required libs (rpm)
+  package:
+    name: "{{ solr_required_libs }}"
+    state: present
+  when: ansible_os_family == "RedHat"
 
 - name: Solr | Ensure solr group
   group:

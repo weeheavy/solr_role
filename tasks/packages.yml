@@ -1,8 +1,8 @@
 ---
 
 - name: Solr | Packages | Install maven_artifact module required packages
-  apt:
-    package: "{{ solr_packages_libraries_required_packages }}"
+  package:
+    name: "{{ solr_packages_libraries_required_packages }}"
     state: present
   notify: restart Solr
   when: solr_external_libraries is defined and solr_external_libraries|length > 0

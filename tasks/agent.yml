@@ -1,8 +1,8 @@
 ---
 
 - name: Solr | Agent installation | Install required packages
-  apt:
-    pkg: "{{ solr_agents_required_libs }}"
+  package:
+    name: "{{ solr_agents_required_libs }}"
     state: present
   when: solr_agents_required_libs is defined
 
